@@ -2,6 +2,7 @@ module Index
 
 open Elmish
 open Fable.Remoting.Client
+open Feliz.MantineUI
 open Shared
 
 type Model = { Todos: Todo list; Input: string }
@@ -56,13 +57,13 @@ let private todoAction model dispatch =
                     if ev.key = "Enter" then
                         dispatch AddTodo)
             ]
-            Html.button [
+            // This button will make the build fail.
+            Man.button [
                 prop.className
                     "flex-no-shrink p-2 px-12 rounded bg-teal-600 outline-none focus:ring-2 ring-teal-300 font-bold text-white hover:bg-teal disabled:opacity-30 disabled:cursor-not-allowed"
                 prop.disabled (Todo.isValid model.Input |> not)
                 prop.onClick (fun _ -> dispatch AddTodo)
-                prop.text "Add"
-            ]
+            ] [ Html.text "Add" ]
         ]
     ]
 
